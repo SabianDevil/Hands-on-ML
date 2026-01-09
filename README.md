@@ -6,11 +6,16 @@ Tautan ke buku: Klik di sini untuk akses buku
 Buku ini merupakan panduan komprehensif yang terbagi menjadi dua bagian utama:
 1.	Bagian I: Fondasi Machine Learning
 Bagian ini mencakup semua konsep dasar, mulai dari proyek end-to-end pertama Anda hingga berbagai algoritma fundamental seperti Regresi, SVM, Decision Trees, dan Ensemble Learning.
+
 2.	Bagian II: Jaringan Saraf Tiruan (ANN) dan Deep Learning
 Bagian ini berfokus pada implementasi jaringan saraf tiruan menggunakan Keras dan TensorFlow. Topik yang dibahas meliputi pelatihan jaringan dalam (Deep Networks), CNN, RNN, Autoencoders, hingga GANs.
+
+
 Daftar Isi
 Berikut adalah rincian bab-bab yang akan dibahas dalam buku ini beserta deskripsi singkatnya:
+
 Bab	Judul (Bahasa Indonesia)	Deskripsi Singkat
+
 BAGIAN I	FONDASI MACHINE LEARNING	
 1	Lanskap Machine Learning	Pengantar konsep dasar ML, jenis-jenis sistem, tantangan utama, dan alur kerja proyek.
 2	Proyek Machine Learning End-to-End	Panduan langkah demi langkah membangun proyek regresi perumahan, dari data mentah hingga peluncuran.
@@ -21,6 +26,7 @@ BAGIAN I	FONDASI MACHINE LEARNING
 7	Ensemble Learning dan Random Forests	Menggabungkan beberapa model (misal: Voting, Bagging, Boosting, Stacking) untuk performa lebih baik.
 8	Reduksi Dimensi	Membahas "kutukan dimensi" dan teknik mitigasinya seperti PCA dan t-SNE.
 9	Teknik Unsupervised Learning	Mengeksplorasi algoritma klastering (K-Means, DBSCAN), Gaussian Mixtures, dan deteksi anomali.
+
 BAGIAN II	JARINGAN SARAF TIRUAN DAN DEEP LEARNING	
 10	Pengantar ANN dengan Keras	Memperkenalkan arsitektur ANN, dari Perceptron hingga Multi-Layer Perceptron (MLP), dan implementasinya di Keras.
 11	Melatih Deep Neural Networks	Mengatasi masalah dalam melatih DNN, seperti gradien menghilang/meledak, optimizers, dan transfer learning.
@@ -32,6 +38,7 @@ BAGIAN II	JARINGAN SARAF TIRUAN DAN DEEP LEARNING
 17	Representation & Generative Learning	Membahas autoencoders (sparse, denoising, variational) dan GANs untuk menghasilkan data baru.
 18	Reinforcement Learning	Pengantar Reinforcement Learning (RL), Policy Gradients, Deep Q-Networks (DQN), dan penggunaan library TF-Agents.
 19	Training dan Deploying Skala Besar	Cara men-deploy model ke produksi menggunakan TF Serving, Google Cloud AI Platform, TFLite (mobile), dan pelatihan terdistribusi.
+
 🚀 Lingkup Tugas
-Kita akan mengeksplorasi dan mengerjakan materi mulai dari Bab 1 hingga Bab 19.
+Kita akan mengeksplorasi dan mengerjakan materi mulai dari Bab 1 hingga Bab 11.
 
