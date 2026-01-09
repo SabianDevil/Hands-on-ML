@@ -1,0 +1,52 @@
+Ringkasan Bab 4: Membuka Kotak Hitam (Model Training)
+Bab ini mengajak kita berhenti memperlakukan model Machine Learning sebagai kotak ajaib. Kita akan membedah algoritma matematika yang bekerja di balik layar, memahami bagaimana sebenarnya mesin "belajar" dan mengoptimalkan parameternya.
+________________________________________
+
+1. Dua Jalan Menuju Regresi Linear
+Untuk menemukan garis terbaik yang memprediksi data (Regresi Linear), ada dua pendekatan matematis yang sangat berbeda:
+
+•	Persamaan Normal (The Closed-Form Solution):
+Ini adalah "jalan pintas" matematika. Kita menggunakan rumus aljabar linear langsung untuk menghitung nilai parameter optimal ($\theta$) dalam satu langkah instan. Cepat untuk data kecil, tapi sangat lambat jika jumlah fitur membludak.
+
+•	Penurunan Gradien (Gradient Descent - GD):
+Ini adalah pendekatan "pendakian". Algoritma memulai dengan parameter acak, lalu secara berulang (iteratif) mengubah nilai parameter sedikit demi sedikit untuk menuruni bukit kesalahan (cost function) hingga mencapai titik terendah (minimum global).
+________________________________________
+
+2. Varian Penurunan Gradien
+Tidak semua pendakian diciptakan sama. Ada tiga strategi utama dalam melakukan Gradient Descent:
+
+•	Batch GD:
+Sangat hati-hati. Ia menghitung gradien menggunakan seluruh data latih di setiap langkahnya. Hasilnya akurat dan jalurnya mulus, tapi sangat lambat untuk dataset besar.
+
+•	Stochastic GD (SGD):
+Sangat impulsif. Ia mengambil satu data acak di setiap langkah. Sangat cepat, tapi jalurnya "mabuk" (zig-zag) dan tidak pernah benar-benar diam di titik minimum (butuh learning schedule untuk menjinakkannya).
+
+•	Mini-batch GD:
+Jalan tengah terbaik. Ia menghitung gradien berdasarkan sekelompok kecil data acak. Lebih stabil daripada SGD dan lebih cepat daripada Batch GD. Ini adalah standar industri saat ini.
+________________________________________
+
+3. Regresi Polinomial: Melengkungkan Garis
+Bagaimana jika data kita berbentuk kurva, bukan garis lurus? Kita tidak perlu mengganti algoritma.
+•	Triknya: Kita memanipulasi data dengan menambahkan pangkat dari fitur yang ada (misalnya $x^2$, $x^3$) sebagai fitur baru.
+•	Hasilnya: Model linear akan "tertipu" untuk menyesuaikan diri dengan fitur-fitur baru tersebut, sehingga menghasilkan garis prediksi yang melengkung mengikuti pola data non-linear.
+________________________________________
+
+4. Diagnosa Kesehatan Model
+Bagaimana kita tahu model kita sakit? Kita menggunakan Kurva Pembelajaran (Learning Curves).
+•	Underfitting (Terlalu Sederhana): Kurva error pelatihan dan validasi sama-sama tinggi dan mendatar. Menambah data tidak akan membantu; modelnya yang harus diganti atau diperumit.
+•	Overfitting (Terlalu Menghafal): Kurva error pelatihan sangat rendah, tapi error validasi tinggi (ada celah besar). Model terlalu sensitif terhadap noise data latih.
+•	Trade-off Bias/Varian: Ini adalah dilema abadi. Bias tinggi menyebabkan underfitting, Varian tinggi menyebabkan overfitting. Tugas kita adalah menyeimbangkan keduanya.
+________________________________________
+
+5. Regularisasi: Mengekang Kebebasan Model
+Untuk mencegah overfitting, kita harus membatasi kebebasan model agar tidak terlalu liar. Ini disebut Regularisasi.
+•	Ridge Regression ($\ell_2$): Memaksa bobot parameter tetap kecil. Semua fitur tetap dipakai, tapi pengaruhnya diredam.
+•	Lasso Regression ($\ell_1$): Sangat agresif. Ia cenderung membuat bobot fitur yang tidak penting menjadi nol mutlak. Ini secara otomatis melakukan seleksi fitur.
+•	Elastic Net: Gabungan kompromi antara Ridge dan Lasso.
+•	Early Stopping: Cara paling praktis. Hentikan pelatihan tepat saat error validasi mencapai titik terendah, sebelum ia mulai naik lagi (tanda awal overfitting).
+________________________________________
+
+6. Adaptasi Klasifikasi
+Di akhir bab, prinsip regresi linear diadaptasi untuk tugas klasifikasi (memilah kategori):
+•	Regresi Logistik: Menggunakan fungsi Sigmoid untuk mengubah output linear menjadi probabilitas (antara 0 dan 1). Cocok untuk masalah biner (Ya/Tidak).
+•	Regresi Softmax: Generalisasi dari regresi logistik untuk menangani banyak kelas sekaligus (Multinomial) tanpa perlu melatih banyak model biner terpisah.
