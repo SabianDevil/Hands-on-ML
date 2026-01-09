@@ -1,0 +1,43 @@
+Ringkasan Bab 11: Menaklukkan Jaringan Saraf Dalam (Deep Neural Networks)
+Bab ini membahas transisi dari jaringan saraf sederhana ke jaringan saraf dalam (memiliki puluhan atau ratusan lapisan). Saat jaringan semakin dalam, tantangan teknis pun bermunculan. Bab ini menawarkan "kotak perkakas" berisi solusi modern untuk mengatasi tiga musuh utama DNN: ketidakstabilan gradien, pelatihan yang lambat, dan overfitting.
+________________________________________
+
+1. Masalah Ketidakstabilan Gradien
+Musuh pertama adalah fenomena di mana sinyal pembelajaran (error) gagal mencapai lapisan awal jaringan.
+
+•	Masalah:
+o	Gradien Menghilang (Vanishing Gradients): Sinyal koreksi menyusut menjadi sangat kecil saat merambat mundur (backpropagation) ke lapisan bawah, sehingga lapisan awal tidak pernah belajar.
+o	Gradien Meledak (Exploding Gradients): Kebalikannya, sinyal membesar tak terkendali hingga bobot menjadi NaN (Not a Number).
+
+•	Solusi Modern:
+o	Inisialisasi Cerdas: Tinggalkan inisialisasi acak biasa. Gunakan strategi statistik seperti He Initialization (untuk ReLU) atau Glorot/Xavier (untuk Sigmoid/Tanh) guna menjaga varians sinyal tetap stabil sejak awal.
+o	Aktivasi Non-Jenuh: Hindari fungsi Sigmoid yang mudah "jenuh" (datar di ujung). Gunakan keluarga ReLU (termasuk Leaky ReLU, ELU, SELU) yang membiarkan gradien tetap mengalir untuk nilai positif.
+o	Batch Normalization (BN): Menyisipkan operasi normalisasi di tengah-tengah jaringan (biasanya sebelum aktivasi). Ini menstabilkan distribusi input di setiap lapisan, memungkinkan penggunaan learning rate yang lebih tinggi.
+o	Gradient Clipping: Memotong paksa nilai gradien agar tidak melebihi ambang batas tertentu, teknik yang sering dipakai di RNN untuk mencegah ledakan.
+________________________________________
+
+2. Percepatan Proses Pelatihan
+Melatih jaringan raksasa bisa memakan waktu berminggu-minggu. Bab ini memperkenalkan cara untuk mengambil jalur cepat.
+•	Transfer Learning: Jangan menciptakan roda dari nol. Ambil model yang sudah dilatih pada dataset besar (seperti ImageNet), potong bagian atasnya, dan gunakan bagian bawahnya untuk tugas baru Anda. Kuncinya adalah membekukan (freezing) lapisan bawah agar bobot yang sudah pintar tidak rusak saat awal pelatihan baru.
+•	Optimizers Tingkat Lanjut: Mengganti Stochastic Gradient Descent (SGD) standar dengan algoritma yang lebih cerdas:
+
+o	Momentum / Nesterov: Memanfaatkan konsep fisika "momentum" untuk mempercepat pergerakan menuruni lembah fungsi loss.
+o	Algoritma Adaptif (Adam, RMSProp, Nadam): Menyesuaikan laju pembelajaran (learning rate) untuk setiap parameter secara individu. Adam adalah standar emas saat ini.
+
+•	Penjadwalan Laju Pembelajaran (Learning Rate Scheduling): Strategi dinamis: Mulai dengan langkah besar agar cepat turun, lalu perkecil langkah saat mendekati target agar presisi. Teknik populer termasuk Exponential Decay atau ReduceLROnPlateau (turunkan laju jika performa stagnan).
+________________________________________
+
+3. Mencegah Overfitting pada Jaringan Raksasa
+DNN memiliki jutaan parameter, yang membuatnya sangat mudah menghafal data latih alih-alih memahaminya.
+•	Regularisasi L1 & L2: Memberikan denda (penalti) pada fungsi kerugian jika bobot model terlalu besar, memaksa model mencari solusi yang lebih sederhana.
+•	Dropout: Teknik "sabotase" yang efektif. Pada setiap langkah pelatihan, matikan sebagian neuron (misalnya 50%) secara acak. Ini memaksa jaringan menjadi tangguh karena tidak bisa bergantung pada neuron tertentu saja.
+•	Monte Carlo (MC) Dropout: Trik cerdas di mana Dropout tetap dinyalakan saat prediksi (inferensi). Dengan melakukan prediksi berulang kali pada input yang sama, kita bisa mendapatkan estimasi ketidakpastian (uncertainty) model.
+•	Max-Norm Regularization: Membatasi panjang vektor bobot neuron secara keras agar tidak melebihi nilai tertentu.
+________________________________________
+
+Implementasi Praktis (Keras)
+Bab ini juga menekankan penerapan kode yang ringkas:
+•	Mengaktifkan kernel_initializer="he_normal" saat membuat layer.
+•	Menambahkan keras.layers.BatchNormalization() sebagai layer terpisah.
+•	Menggunakan optimizer=keras.optimizers.SGD(clipvalue=1.0) untuk memotong gradien.
+•	Menggunakan callback seperti ReduceLROnPlateau untuk mengatur learning rate secara otomatis.
