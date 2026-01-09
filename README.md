@@ -1,44 +1,37 @@
-# Enrichment Assignments: Machine Learning and Deep Learning
+Tugas Pengayaan: Machine Learning dan Deep Learning
+Selamat datang di repositori Tugas Pengayaan untuk kelas Machine Learning dan Deep Learning Anda. Proyek ini bertujuan untuk mengeksplorasi dan mengimplementasikan konsep-konsep kunci yang disajikan dalam buku "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow" (Edisi ke-2) karya Aurélien Géron.
+Tautan ke buku: Klik di sini untuk akses buku
+<img width="1024" height="1317" alt="Sampul Buku Hands-On Machine Learning" src="https://github.com/user-attachments/assets/33941497-e805-4d0a-afe9-7810e5418776" />
+📖 Tentang Buku Ini
+Buku ini merupakan panduan komprehensif yang terbagi menjadi dua bagian utama:
+1.	Bagian I: Fondasi Machine Learning
+Bagian ini mencakup semua konsep dasar, mulai dari proyek end-to-end pertama Anda hingga berbagai algoritma fundamental seperti Regresi, SVM, Decision Trees, dan Ensemble Learning.
+2.	Bagian II: Jaringan Saraf Tiruan (ANN) dan Deep Learning
+Bagian ini berfokus pada implementasi jaringan saraf tiruan menggunakan Keras dan TensorFlow. Topik yang dibahas meliputi pelatihan jaringan dalam (Deep Networks), CNN, RNN, Autoencoders, hingga GANs.
+Daftar Isi
+Berikut adalah rincian bab-bab yang akan dibahas dalam buku ini beserta deskripsi singkatnya:
+Bab	Judul (Bahasa Indonesia)	Deskripsi Singkat
+BAGIAN I	FONDASI MACHINE LEARNING	
+1	Lanskap Machine Learning	Pengantar konsep dasar ML, jenis-jenis sistem, tantangan utama, dan alur kerja proyek.
+2	Proyek Machine Learning End-to-End	Panduan langkah demi langkah membangun proyek regresi perumahan, dari data mentah hingga peluncuran.
+3	Klasifikasi	Membahas tugas klasifikasi, metrik performa (Akurasi, Presisi/Recall, kurva ROC), dan model klasifikasi.
+4	Melatih Model	Mengeksplorasi model seperti Regresi Linear, Gradient Descent, Regresi Polinomial, dan regularisasi.
+5	Support Vector Machines (SVM)	Membahas cara kerja SVM untuk klasifikasi linear/non-linear, regresi, dan penggunaan kernel trick.
+6	Decision Trees	Menjelaskan cara melatih, memvisualisasikan, dan melakukan regularisasi pohon keputusan.
+7	Ensemble Learning dan Random Forests	Menggabungkan beberapa model (misal: Voting, Bagging, Boosting, Stacking) untuk performa lebih baik.
+8	Reduksi Dimensi	Membahas "kutukan dimensi" dan teknik mitigasinya seperti PCA dan t-SNE.
+9	Teknik Unsupervised Learning	Mengeksplorasi algoritma klastering (K-Means, DBSCAN), Gaussian Mixtures, dan deteksi anomali.
+BAGIAN II	JARINGAN SARAF TIRUAN DAN DEEP LEARNING	
+10	Pengantar ANN dengan Keras	Memperkenalkan arsitektur ANN, dari Perceptron hingga Multi-Layer Perceptron (MLP), dan implementasinya di Keras.
+11	Melatih Deep Neural Networks	Mengatasi masalah dalam melatih DNN, seperti gradien menghilang/meledak, optimizers, dan transfer learning.
+12	Model Kustom dengan TensorFlow	Menyelami API level rendah TensorFlow untuk membuat model, loss, layer, dan training loop kustom.
+13	Memuat dan Memproses Data	Membahas Data API, format TFRecord, lapisan preprocessing, dan TensorFlow Datasets (TFDS).
+14	Deep Computer Vision dengan CNN	Mengeksplorasi arsitektur CNN (layer konvolusi, pooling) dan model modern seperti ResNet dan Xception.
+15	Memproses Sekuens dengan RNN dan CNN	Memperkenalkan Recurrent Neural Networks (RNN), sel LSTM, GRU, dan penggunaan CNN (misal: WaveNet) untuk data urutan.
+16	NLP dengan RNN dan Attention	Membangun model NLP, dari Char-RNN hingga Encoder-Decoder, mekanisme attention, dan arsitektur Transformer.
+17	Representation & Generative Learning	Membahas autoencoders (sparse, denoising, variational) dan GANs untuk menghasilkan data baru.
+18	Reinforcement Learning	Pengantar Reinforcement Learning (RL), Policy Gradients, Deep Q-Networks (DQN), dan penggunaan library TF-Agents.
+19	Training dan Deploying Skala Besar	Cara men-deploy model ke produksi menggunakan TF Serving, Google Cloud AI Platform, TFLite (mobile), dan pelatihan terdistribusi.
+🚀 Lingkup Tugas
+Kita akan mengeksplorasi dan mengerjakan materi mulai dari Bab 1 hingga Bab 19.
 
-Welcome to the Enrichment Assignment repository for your Machine Learning and Deep Learning classes. This project aims to explore and implement key concepts presented in the book **"Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow" (2nd Edition)** by Aurélien Géron. Link to the book: https://drive.google.com/file/d/1n9kUmzEXiQ6fvBSechCbDd_JXFADI4E1/view
-
-<img width="1024" height="1317" alt="image" src="https://github.com/user-attachments/assets/33941497-e805-4d0a-afe9-7810e5418776" />
-
-## 📖 About the Book
-
-This book is a comprehensive guide divided into two main parts:
-
-1. **Part I: Machine Learning Foundations** - This part covers all the basic concepts, from your first end-to-end project to various algorithms such as Regression, SVM, Decision Trees, and Ensemble Learning.
-2. **Part II: Artificial Neural Networks and Deep Learning** - This part focuses on implementing artificial neural networks (ANNs) using Keras and TensorFlow, covering topics such as training deep networks (DNNs), CNNs, RNNs, Autoencoders, and GANs.
-
-## Table of Contents
-
-Here is a breakdown of the chapters in this book:
-
-| Chapter | Title (Bahasa Indonesia) | Brief Description |
-| :--- | :--- | :--- |
-| **PART I. MACHINE LEARNING FOUNDATIONS** | | |
-| 1 | Machine Learning Landscape | Introduction to basic ML concepts, system types, key challenges, and project workflow. |
-| 2 | End-to-End Machine Learning Project | A step-by-step guide to building a housing regression project, from raw data to launch. |
-| 3 | Classification | Discusses classification tasks, performance metrics (e.g., Accuracy, Precision/Recall, ROC curves), and classification models. |
-| 4 | Training the Model | Explores various models such as Linear Regression, Gradient Descent, Polynomial Regression, and regularization models. |
-| 5 | Support Vector Machines (SVM) | Covers how SVMs work for linear and nonlinear classification, regression, and the use of kernel tricks. |
-| 6 | Decision Trees | Explains how to train, visualize, and regularize decision trees for classification and regression tasks. |
-| 7 | Ensemble Learning and Random Forests | Combining multiple models (e.g., Voting Classifier, Bagging, Boosting, Stacking) for better performance. |
-| 8 | Dimensionality Reduction | Discusses the "curse of dimensionality" and key techniques for mitigating it, such as PCA and t-SNE. |
-| 9 | Unsupervised Learning Techniques | Exploring clustering algorithms (K-Means, DBSCAN), Gaussian Mixtures, and anomaly detection. |
-| **PART II. ARTIFICIAL NEURAL NETWORKS AND DEEP LEARNING** | | |
-| 10 | Introduction to Artificial Neural Networks (ANNs) with Keras | Introducing ANN architectures, from the Perceptron to the Multi-Layer Perceptron (MLP), and their implementation in Keras. |
-| 11 | Training Deep Neural Networks | Addressing issues in training DNNs, such as vanishing/exploding gradients, optimizers, regularization, and transfer learning. |
-| 12 | Custom Models and Training with TensorFlow | Dive into TensorFlow's low-level API to create custom models, losses, layers, and training loops. |
-| 13 | Loading and Preprocessing Data with TensorFlow | Covers the Data API, TFRecord format, preprocessing layers, and TensorFlow Datasets (TFDS). |
-| 14 | Deep Computer Vision Using Convolutional Neural Networks (CNN) | Explores CNN architectures (convolutional layers, pooling) and modern models like ResNet and Xception. |
-| 15 | Processing Sequences Using RNNs and CNNs | Introducing Recurrent Neural Networks (RNNs), LSTM cells, and GRUs, and the use of CNNs (e.g., WaveNet) for sequential data. |
-| 16 | Natural Language Processing (NLP) with RNNs and Attention | Building NLP models, from Char-RNNs to Encoder-Decoders, attention mechanisms, and the Transformer architecture. |
-| 17 | Representation Learning and Generative Learning Using Autoencoders and GANs | Discussing autoencoders (sparse, denoising, variational) and Generative Adversarial Networks (GANs) for generating new data. |
-| 18 | Reinforcement Learning | Introduction to Reinforcement Learning (RL), Policy Gradients, Deep Q-Networks (DQN), and the use of the TF-Agents library. |
-| 19 | Training and Deploying TensorFlow Models at Scale | Covers how to deploy models to production using TF Serving, Google Cloud AI Platform, TFLite (mobile), and distributed training. |
-
-## 🚀 Assignment Scope
-
-**We will explore material from Chapters 1 through 19.**
