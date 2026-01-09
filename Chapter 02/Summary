@@ -1,1 +1,46 @@
+ingkasan Bab 2: Proyek Machine Learning dari Hulu ke Hilir
+Bab ini merupakan simulasi lengkap dari siklus hidup proyek sains data, mulai dari definisi masalah mentah hingga menghasilkan model prediksi harga rumah di California yang siap produksi.
+________________________________________
 
+1. Membingkai Masalah (The Big Picture)
+Langkah awal adalah menentukan landasan proyek:
+•	Jenis Masalah: Didefinisikan sebagai Supervised Learning karena kita memiliki label (harga rumah), dan spesifiknya adalah Regresi Berganda (Multiple Regression) karena melibatkan banyak variabel fitur untuk memprediksi satu nilai kontinu.
+•	Metrik Evaluasi: Root Mean Square Error (RMSE) dipilih sebagai standar utama untuk mengukur seberapa jauh prediksi model melenceng dari kenyataan.
+________________________________________
+
+2. Akuisisi Data
+Bagian ini berfokus pada otomatisasi. Notebook menyediakan skrip untuk mengunduh, mengekstrak, dan memuat dataset housing.tgz secara langsung, memastikan lingkungan kerja selalu memiliki data terbaru.
+________________________________________
+
+3. Eksplorasi dan Visualisasi Data
+Sebelum dimodelkan, data harus "dirasakan" terlebih dahulu:
+•	Inspeksi Awal: Mengidentifikasi tipe data dan nilai yang hilang (terutama pada kolom total_bedrooms) serta melihat ringkasan statistik.
+•	Analisis Distribusi: Histogram mengungkapkan bahwa banyak fitur memiliki distribusi tail-heavy (menjulur ke kanan) dan adanya pemangkasan nilai (capping) pada harga rumah maksimum.
+•	Strategi Sampling: Penerapan Stratified Sampling berdasarkan pendapatan median (median_income) sangat ditekankan. Ini krusial untuk mencegah bias dan memastikan sampel uji benar-benar mewakili populasi.
+•	Geospasial & Korelasi: Visualisasi peta menggunakan koordinat lintang-bujur memperlihatkan konsentrasi harga tinggi di pesisir. Matriks korelasi mengonfirmasi bahwa pendapatan adalah prediktor terkuat untuk harga rumah.
+________________________________________
+
+4. Rekayasa dan Penyiapan Data
+Proses pembersihan data dibangun secara sistematis menggunakan Pipeline Scikit-Learn:
+•	Imputasi: Mengisi kekosongan data pada total_bedrooms dengan nilai median menggunakan SimpleImputer.
+•	Transformasi Kategorial: Mengubah fitur teks ocean_proximity menjadi format numerik biner menggunakan OneHotEncoder.
+•	Fitur Kustom: Membuat transformer khusus untuk menghasilkan atribut baru yang lebih bermakna, seperti rasio kamar per rumah tangga.
+•	Penyekalaan: Menstandarisasi rentang nilai numerik menggunakan StandardScaler agar model tidak bias terhadap angka yang besar.
+•	Penyatuan: Menggabungkan semua langkah di atas menggunakan ColumnTransformer.
+________________________________________
+
+5. Seleksi dan Pelatihan Model
+Beberapa kandidat algoritma diuji menggunakan teknik K-Fold Cross-Validation:
+•	Linear Regression: Terbukti gagal menangkap pola (RMSE tinggi) karena underfitting.
+•	Decision Tree: Terlalu menghafal data latih (skor sempurna di latihan, buruk di validasi), indikasi kuat overfitting.
+•	Random Forest: Memberikan performa paling seimbang dan menjanjikan, menjadikannya kandidat utama untuk tahap selanjutnya.
+________________________________________
+
+6. Penyetelan Halus (Fine-Tuning)
+Model terbaik (Random Forest) dipoles untuk mencapai performa puncak:
+•	Pencarian Hyperparameter: Menggunakan GridSearchCV untuk kombinasi parameter terbatas dan RandomizedSearchCV untuk eksplorasi ruang parameter yang lebih luas secara efisien.
+•	Analisis Fitur: Membedah model untuk melihat "isi otaknya", yang mengungkapkan fitur mana saja yang paling berkontribusi terhadap prediksi (misalnya: pendapatan dan lokasi).
+________________________________________
+
+7. Evaluasi Final
+Langkah terakhir adalah "ujian akhir". Pipeline data lengkap dijalankan pada Test Set yang selama ini disembunyikan. Model final berhasil mencetak skor RMSE sebesar $48,051, angka yang menjadi tolok ukur keberhasilan proyek ini.
