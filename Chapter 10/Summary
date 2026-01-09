@@ -1,76 +1,57 @@
 Ringkasan Bab 10: Pengantar Jaringan Saraf Tiruan dengan Keras
 Bab ini adalah pintu gerbang menuju dunia Deep Learning. Kita diajak menelusuri evolusi Jaringan Saraf Tiruan (Artificial Neural Networks - ANN), mulai dari inspirasi biologis sederhana hingga implementasi arsitektur modern yang kuat menggunakan API Keras.
+________________________________________
 
 1. Evolusi Konsep: Dari Biologi ke Matematika
 Sebelum menulis kode, bab ini meletakkan fondasi teoretis yang vital:
 
-Sang Leluhur: Perceptron Jaringan saraf paling purba yang berbasis pada Threshold Logic Unit (TLU).
+•	Sang Leluhur: Perceptron Jaringan saraf paling purba yang berbasis pada Threshold Logic Unit (TLU).
+o	Cara Kerja: Menerima input, mengalikannya dengan bobot, menjumlahkannya, dan menerapkan fungsi tangga (step function).
+o	Kelemahan Fatal: Perceptron tunggal hanya bisa menyelesaikan masalah linear. Ia gagal total dalam memecahkan masalah logika sederhana seperti XOR (Exclusive OR), yang sempat membuat riset AI mati suri (musim dingin AI).
 
-Cara Kerja: Menerima input, mengalikannya dengan bobot, menjumlahkannya, dan menerapkan fungsi tangga (step function).
+•	Kebangkitan: Multilayer Perceptron (MLP) Solusi untuk masalah XOR adalah menumpuk lapisan. MLP terdiri dari:
+1.	Input Layer: Menerima data mentah.
+2.	Hidden Layers: Lapisan tengah yang melakukan transformasi fitur.
+3.	Output Layer: Menghasilkan prediksi akhir.
 
-Kelemahan Fatal: Perceptron tunggal hanya bisa menyelesaikan masalah linear. Ia gagal total dalam memecahkan masalah logika sederhana seperti XOR (Exclusive OR), yang sempat membuat riset AI mati suri (musim dingin AI).
+•	Mesin Belajar: Backpropagation Ini adalah algoritma yang membuat MLP bisa "belajar". Siklusnya terdiri dari empat langkah:
+1.	Maju (Forward Pass): Data mengalir dari input ke output untuk menghasilkan prediksi.
+2.	Hitung Error: Mengukur selisih prediksi dengan target asli.
+3.	Mundur (Backward Pass): Menelusuri balik jaringan untuk menghitung seberapa besar kontribusi setiap neuron terhadap kesalahan tersebut (gradien).
+4.	Update: Mengoreksi bobot menggunakan Gradient Descent.
 
-Kebangkitan: Multilayer Perceptron (MLP) Solusi untuk masalah XOR adalah menumpuk lapisan. MLP terdiri dari:
-
-Input Layer: Menerima data mentah.
-
-Hidden Layers: Lapisan tengah yang melakukan transformasi fitur.
-
-Output Layer: Menghasilkan prediksi akhir.
-
-Mesin Belajar: Backpropagation Ini adalah algoritma yang membuat MLP bisa "belajar". Siklusnya terdiri dari empat langkah:
-
-Maju (Forward Pass): Data mengalir dari input ke output untuk menghasilkan prediksi.
-
-Hitung Error: Mengukur selisih prediksi dengan target asli.
-
-Mundur (Backward Pass): Menelusuri balik jaringan untuk menghitung seberapa besar kontribusi setiap neuron terhadap kesalahan tersebut (gradien).
-
-Update: Mengoreksi bobot menggunakan Gradient Descent.
-
-Bumbu Rahasia: Fungsi Aktivasi Tanpa fungsi aktivasi non-linear (seperti ReLU, Sigmoid, atau Tanh) di antara lapisan, jaringan saraf sedalam apa pun hanya akan setara dengan model regresi linear biasa. Non-linearitaslah yang memungkinkannya mempelajari pola yang rumit.
+•	Bumbu Rahasia: Fungsi Aktivasi Tanpa fungsi aktivasi non-linear (seperti ReLU, Sigmoid, atau Tanh) di antara lapisan, jaringan saraf sedalam apa pun hanya akan setara dengan model regresi linear biasa. Non-linearitaslah yang memungkinkannya mempelajari pola yang rumit.
+________________________________________
 
 2. Implementasi Praktis: Keras Sequential API
 Bagian ini mendemonstrasikan cara termudah membangun jaringan saraf, yaitu dengan menumpuk lapisan seperti kue lapis (Sequential API).
 
 A. Kasus Klasifikasi (Fashion MNIST)
+•	Tugas: Mengategorikan gambar pakaian ke dalam 10 kelas.
 
-Tugas: Mengategorikan gambar pakaian ke dalam 10 kelas.
+•	Arsitektur:
+o	Flatten: Meratakan gambar 2D (28x28) menjadi vektor 1D.
+o	Dense (Hidden): Lapisan terhubung penuh dengan aktivasi ReLU.
+o	Dense (Output): 10 neuron dengan aktivasi Softmax (karena outputnya adalah probabilitas untuk banyak kelas).
 
-Arsitektur:
-
-Flatten: Meratakan gambar 2D (28x28) menjadi vektor 1D.
-
-Dense (Hidden): Lapisan terhubung penuh dengan aktivasi ReLU.
-
-Dense (Output): 10 neuron dengan aktivasi Softmax (karena outputnya adalah probabilitas untuk banyak kelas).
-
-Loss Function: Menggunakan sparse_categorical_crossentropy karena label berupa integer, bukan one-hot encoding.
+•	Loss Function: Menggunakan sparse_categorical_crossentropy karena label berupa integer, bukan one-hot encoding.
 
 B. Kasus Regresi (California Housing)
-
-Tugas: Memprediksi harga rumah (nilai kontinu).
-
-Arsitektur: Struktur mirip dengan klasifikasi, namun lapisan outputnya berbeda.
-
-Dense (Output): Hanya 1 neuron dan tanpa fungsi aktivasi, karena kita ingin memprediksi nilai numerik bebas.
-
-Loss Function: Menggunakan mean_squared_error (MSE).
+•	Tugas: Memprediksi harga rumah (nilai kontinu).
+•	Arsitektur: Struktur mirip dengan klasifikasi, namun lapisan outputnya berbeda.
+o	Dense (Output): Hanya 1 neuron dan tanpa fungsi aktivasi, karena kita ingin memprediksi nilai numerik bebas.
+•	Loss Function: Menggunakan mean_squared_error (MSE).
+________________________________________
 
 3. Eksplorasi Arsitektur Lanjutan
 Keras tidak hanya soal menumpuk lapisan. Bab ini memperkenalkan API yang lebih fleksibel untuk arsitektur kompleks:
-
-Functional API (Gaya Lego): Memungkinkan kita membuat jaringan dengan topologi non-linear, seperti model Wide & Deep. Model ini bisa memiliki jalur ganda: jalur "lebar" untuk input sederhana dan jalur "dalam" untuk input kompleks, yang kemudian digabungkan sebelum output. Kita juga bisa membuat model dengan banyak input atau banyak output sekaligus.
-
-Subclassing API (Gaya OOP): Pendekatan bagi power user yang menyukai gaya Pemrograman Berorientasi Objek. Kita mendefinisikan lapisan dalam __init__ dan logika aliran data dalam metode call(). Ini memberikan kebebasan penuh untuk membuat model dinamis (misalnya dengan loops atau kondisi if-else di dalam jaringan).
+•	Functional API (Gaya Lego): Memungkinkan kita membuat jaringan dengan topologi non-linear, seperti model Wide & Deep. Model ini bisa memiliki jalur ganda: jalur "lebar" untuk input sederhana dan jalur "dalam" untuk input kompleks, yang kemudian digabungkan sebelum output. Kita juga bisa membuat model dengan banyak input atau banyak output sekaligus.
+•	Subclassing API (Gaya OOP): Pendekatan bagi power user yang menyukai gaya Pemrograman Berorientasi Objek. Kita mendefinisikan lapisan dalam __init__ dan logika aliran data dalam metode call(). Ini memberikan kebebasan penuh untuk membuat model dinamis (misalnya dengan loops atau kondisi if-else di dalam jaringan).
+________________________________________
 
 4. Manajemen Siklus Hidup Model
 Membangun model hanyalah separuh jalan. Bab ini mengajarkan cara mengelolanya agar efisien:
-
-Penyelamatan Darurat (Checkpointing): Menggunakan ModelCheckpoint untuk menyimpan bobot model secara otomatis selama pelatihan. Kita bisa mengaturnya untuk hanya menyimpan "model terbaik" (save_best_only), sehingga kita tidak perlu khawatir jika performa model menurun di akhir pelatihan.
-
-Rem Otomatis (Early Stopping): Teknik untuk menghentikan pelatihan secara otomatis jika performa pada data validasi tidak lagi meningkat selama beberapa epoch. Ini mencegah buang-buang waktu dan overfitting.
-
-Visualisasi (TensorBoard): Alat interaktif untuk memantau kurva pembelajaran (loss dan akurasi) secara real-time dalam bentuk grafik yang cantik.
-
-Optimasi Hyperparameter: Menggunakan pembungkus KerasRegressor agar model Keras bisa dimasukkan ke dalam RandomizedSearchCV milik Scikit-Learn. Ini memungkinkan kita mencari kombinasi jumlah neuron, learning rate, atau fungsi aktivasi terbaik secara otomatis.
+•	Penyelamatan Darurat (Checkpointing): Menggunakan ModelCheckpoint untuk menyimpan bobot model secara otomatis selama pelatihan. Kita bisa mengaturnya untuk hanya menyimpan "model terbaik" (save_best_only), sehingga kita tidak perlu khawatir jika performa model menurun di akhir pelatihan.
+•	Rem Otomatis (Early Stopping): Teknik untuk menghentikan pelatihan secara otomatis jika performa pada data validasi tidak lagi meningkat selama beberapa epoch. Ini mencegah buang-buang waktu dan overfitting.
+•	Visualisasi (TensorBoard): Alat interaktif untuk memantau kurva pembelajaran (loss dan akurasi) secara real-time dalam bentuk grafik yang cantik.
+•	Optimasi Hyperparameter: Menggunakan pembungkus KerasRegressor agar model Keras bisa dimasukkan ke dalam RandomizedSearchCV milik Scikit-Learn. Ini memungkinkan kita mencari kombinasi jumlah neuron, learning rate, atau fungsi aktivasi terbaik secara otomatis
