@@ -1,0 +1,38 @@
+Ringkasan Bab 8: Komponen Lanjutan dan Kustomisasi Layer
+Bab ini bukan lagi tentang sekadar menyusun balok lego standar. Kita diajak masuk ke "bengkel" Keras untuk menggunakan komponen spesialis, mengontrol perilaku bobot secara presisi, dan bahkan merakit komponen mesin (layer) kita sendiri.
+________________________________________
+
+1. Spesialisasi Layer Keras
+Bagian ini memperkenalkan varian layer yang dirancang untuk dimensi data dan kebutuhan stabilitas tertentu.
+
+•	Dimensi Konvolusi yang Tepat: Memilih alat yang pas untuk bentuk data:
+o	Conv1D: Spesialis data sekuensial (teks, deret waktu, sinyal audio).
+o	Conv2D: Standar industri untuk data citra (gambar statis).
+o	Conv3D: Digunakan untuk data volumetrik atau video (dimensi ruang + waktu).
+
+•	Strategi Normalisasi: Teknik menjaga distribusi data agar pelatihan stabil dan cepat konvergen.
+o	BatchNormalization: Menormalkan input berdasarkan statistik batch. Sangat populer di CNN.
+o	LayerNormalization: Menormalkan input berdasarkan statistik fitur pada satu sampel data. Ini adalah pilihan utama untuk model yang sensitif terhadap urutan seperti RNN dan Transformer.
+
+•	Aktivasi Fleksibel: Kita tidak terbatas pada string standar ('relu', 'sigmoid'). Kita bisa menyuntikkan fungsi Python apa pun (seperti tf.nn.swish) langsung sebagai fungsi aktivasi layer.
+________________________________________
+
+2. Manajemen Bobot (Weight Control)
+Jaringan yang dalam seringkali sulit dilatih (gradien meledak/menghilang) atau terlalu menghafal data (overfitting). Bagian ini memberikan alat kendalinya.
+•	Inisialisasi Cerdas (Initializers): Jangan biarkan nasib model ditentukan oleh angka acak sembarangan di awal. Menggunakan teknik seperti VarianceScaling (mencakup metode Glorot/Xavier dan He) memastikan sinyal varians tetap terjaga dari layer awal hingga akhir, mencegah matinya gradien.
+•	Hukuman Penalti (Regularizers): Memaksa model "berdiet" agar tidak terlalu kompleks.
+
+o	L1: Mendorong bobot menjadi nol (menciptakan sparsity), efektif untuk seleksi fitur otomatis.
+o	L2: Mendorong bobot menjadi angka kecil (namun tidak nol), efektif meratakan distribusi bobot.
+o	Keras memungkinkan kombinasi keduanya lewat tf.keras.regularizers.L1L2.
+
+•	Batasan Keras (Constraints): Jika regularisasi memberikan "saran/hukuman", constraint memberikan "perintah". Contohnya MaxNorm, yang secara paksa memangkas nilai bobot setelah setiap pembaruan gradien agar norma vektornya tidak melebihi batas tertentu.
+________________________________________
+
+3. Rekayasa Model Tingkat Lanjut
+Bagian ini menggabungkan teori di atas ke dalam praktik nyata.
+•	Model A (CNN "Full Spec"): Membangun CNN untuk Fashion MNIST, namun kali ini dilengkapi dengan BatchNormalization, Dropout, dan fungsi aktivasi kustom. Ini menunjukkan bagaimana komponen-komponen tersebut dipasang dalam arsitektur standar.
+•	Model B (Kustomisasi via Sub-classing): Demonstrasi kekuatan penuh TensorFlow. Kita membuat layer sendiri bernama CustomGatedLayer.
+
+o	Mekanisme: Layer ini meniru logika sel LSTM atau Gated Linear Unit. Ia membelah komputasi menjadi dua jalur: jalur transformasi (pengolahan data) dan jalur gerbang/gate (pengontrol aliran).
+o	Fungsi: Sinyal dari jalur transformasi dikalikan dengan sinyal dari jalur gerbang (biasanya sigmoid 0-1), memungkinkan jaringan belajar untuk "memilih" informasi mana yang perlu diteruskan dan mana yang diblokir.
