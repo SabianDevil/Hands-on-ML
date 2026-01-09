@@ -1,0 +1,52 @@
+Ringkasan Bab 6: Pohon Keputusan (Decision Trees)
+Bab ini membahas salah satu algoritma yang paling intuitif dan serbaguna dalam perbendaharaan Machine Learning. Berbeda dengan Neural Network yang sering dianggap "kotak hitam" (sulit dipahami), Pohon Keputusan adalah model "kotak putih" yang logikanya transparan dan mudah diaudit.
+________________________________________
+
+1. Anatomi dan Visualisasi
+Kekuatan utama algoritma ini adalah interpretabilitasnya. Kita dapat melatih DecisionTreeClassifier dan kemudian menggambar peta logika internalnya menggunakan export_graphviz.
+
+•	Struktur Pohon:
+o	Root Node (Akar): Titik awal keputusan di puncak pohon.
+o	Internal Node: Titik percabangan yang mengajukan pertanyaan (kondisi) berdasarkan fitur tertentu.
+o	Leaf Node (Daun): Titik akhir yang tidak memiliki cabang lagi; di sinilah prediksi (keputusan final) dibuat.
+•	Atribut Kunci: Setiap kotak (node) menyimpan informasi tentang jumlah sampel yang diproses (samples), prediksi kelas (value), dan tingkat kekacauan data (gini).
+________________________________________
+
+2. Mekanisme Prediksi: Navigasi Logika
+Untuk memprediksi data baru, kita cukup menelusuri pohon dari akar ke bawah. Di setiap simpul, kita menjawab pertanyaan "Ya/Tidak" (misalnya: "Apakah panjang kelopak < 2.45 cm?"). Jika Ya, belok kiri; jika Tidak, belok kanan. Proses ini berlanjut hingga kita mendarat di daun.
+________________________________________
+
+3. Mengukur Kemurnian: Gini Impurity
+Bagaimana pohon menentukan cara membelah data? Ia menggunakan metrik bernama Gini Impurity.
+•	Definisi: Skor yang mengukur seberapa "murni" sebuah node.
+
+•	Skala:
+o	Gini = 0: Murni sempurna. Semua sampel di node tersebut berasal dari kelas yang sama.
+o	Gini > 0: Tidak murni. Ada campuran beberapa kelas berbeda di node tersebut.
+________________________________________
+
+4. Mesin Penggerak: Algoritma CART
+Scikit-Learn menggunakan algoritma CART (Classification and Regression Tree) untuk menumbuhkan pohon.
+•	Filosofi "Rakus" (Greedy): Algoritma ini mencari pembagian (split) terbaik pada langkah saat ini untuk meminimalkan ketidakmurnian, tanpa memusingkan apakah langkah tersebut akan menghasilkan pohon yang optimal di masa depan. Ia tidak melakukan perencanaan jangka panjang (backtracking), namun metode ini cukup efisien dan efektif.
+________________________________________
+
+5. Seni Pengekangan: Regularisasi
+Pohon Keputusan memiliki kecenderungan alami untuk Overfitting. Tanpa batasan, ia akan terus membelah diri sampai menghafal setiap detail kecil (dan noise) dari data latih.
+
+•	Solusi Hyperparameter: Kita harus membatasi kebebasan tumbuh pohon tersebut, antara lain:
+o	max_depth: Membatasi kedalaman maksimum pohon (jangan terlalu dalam).
+o	min_samples_split: Jumlah sampel minimum yang diperlukan untuk membelah node.
+o	min_samples_leaf: Jumlah sampel minimum yang wajib ada di node daun.
+________________________________________
+
+6. Pohon untuk Regresi
+Pohon Keputusan tidak hanya untuk klasifikasi (kategori), tapi juga bisa memprediksi angka kontinu (Regresi).
+•	Perbedaan: Jika klasifikasi memprediksi "Kelas Mayoritas", maka regresi memprediksi Nilai Rata-rata dari sampel yang ada di node daun tersebut.
+•	Fungsi Objektif: Alih-alih meminimalkan Gini Impurity, algoritma CART untuk regresi berusaha meminimalkan MSE (Mean Squared Error). Hasil prediksinya berbentuk seperti fungsi tangga (step function).
+________________________________________
+
+7. Kelemahan: Instabilitas
+Bab ini ditutup dengan peringatan penting. Meskipun transparan, Pohon Keputusan sangat rapuh.
+•	Sensitivitas Data: Perubahan kecil saja pada data latih bisa mengubah struktur pohon secara drastis.
+•	Masalah Orientasi: Pohon membuat garis pemisah yang tegak lurus sumbu (ortogonal). Jika data memiliki pola diagonal atau miring, pohon akan kesulitan dan harus membuat struktur "tangga" yang rumit, yang seringkali tidak menggeneralisasi dengan baik (kecuali data diputar menggunakan PCA).
+
